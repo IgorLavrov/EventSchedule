@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TaskSchedule.ViewModel"
+             x:Class="TaskSchedule.View.TaskView">
+    <ContentPage.BindingContext>
+        <vm:TaskViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        
+        
+            <StackLayout Margin="5,30,5,5" >
+                <StackLayout>
+                <Label Text="Event Management" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="20" FontAttributes="Bold" TextColor="Black" Margin="10"/>
+                </StackLayout>
+                <!--Add-->
+            <Frame IsVisible="{Binding IsViewDetail}" >
+                <StackLayout>
+                    <Entry x:Name="taskName" Text="{Binding TaskName}" Placeholder="Task name" />
+                    <Entry x:Name="description" Text="{Binding Description}" Placeholder="Description" />
+                    <Entry x:Name="address" Text="{Binding Address}" Placeholder="Address" />
+                    <Label  Text="Due Date"></Label>
+                    <DatePicker x:Name="DueDate" Date="{Binding DueDate, Mode=TwoWay}" ></DatePicker>
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="{Binding TypeCommand,Mode=TwoWay}" Command="{Binding cmdProcessTask}" BackgroundColor="DarkGreen" WidthRequest="100" TextColor="White"/>
+                        <Button Text="Cancel" Command="{Binding cmdCancelTask}" BackgroundColor="DarkGreen" WidthRequest="100" TextColor="White"/>
+                    </StackLayout>
+
+                </StackLayout>
+            </Frame>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label Text="List of Events" FontSize="Medium" TextColor="White"/>
+            </StackLayout>
+
+            <ListView x:Name="TaskList" ItemsSource="{Binding TaskList, Mode=TwoWay}" IsVisible="True"
+                      SelectedItem="{Binding SelectedTask, Mode=TwoWay}"
+                      HasUnevenRows="True" BackgroundColor="Transparent" Margin="10"
+                      SeparatorColor="Red" SelectionMode="Single">
+                    <ListView.Header>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="DarkGray">
+                        <Button BackgroundColor="Transparent" TextTransform="None" TextColor="Green" FontAttributes="Bold" Text="Add" Command="{Binding cmdAddaTask}" />
+                        <Button BackgroundColor="Transparent" TextTransform="None" TextColor="Red" FontAttributes="Bold" Text="Delete" Command="{Binding cmdDeleteaTask}" />
+                        <Button BackgroundColor="Transparent" TextTransform="None" TextColor="DarkOrange" FontAttributes="Bold" Text="Update" Command="{Binding cmdUpdateaTask}" />
+                        <Button BackgroundColor="Transparent" TextTransform="None" TextColor="Black" FontAttributes="Bold" Text="Map" Command="{Binding cmdMapTask}" />
+
+                    </StackLayout>
+
+                </ListView.Header>
+                
+
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                        <ViewCell>
+
+                           
+                        
+                            <StackLayout Orientation="Vertical" Margin="10" BackgroundColor="LightBlue" >
+                                <Label Text="Event" FontSize="Medium" TextColor="OrangeRed" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+                                <Label TextColor="Black" Text="{Binding TaskName}"></Label>
+                                <Label TextColor="Black" Text="{Binding Description}"></Label>
+                                <Label TextColor="Black" Text="{Binding Address}"></Label>
+                                <Label TextColor="Black"  Text="{Binding DueDate}"></Label>
+                                    
+                                </StackLayout>
+                            </ViewCell>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+            </StackLayout>
+        </ContentPage.Content>
+</ContentPage>
